@@ -2,10 +2,19 @@ package desafio_dio_banco_poo;
 
 //abstract para impedir que ela seja instânciada
 public abstract class Conta implements IConta{
-	private int agencia;
-	private int numero;
+	protected int agencia;
+	protected int numero;
+	protected double saldo;
 	
+	private static int AgenciaPadrao;
 	
+	private static int SEQUENCIAL = 0;
+	
+	public Conta() {
+		this.agencia = Conta.AgenciaPadrao;
+		this.numero= Conta.SEQUENCIAL++;
+		
+	}
 	
 	public int getAgencia() {
 		return agencia;
