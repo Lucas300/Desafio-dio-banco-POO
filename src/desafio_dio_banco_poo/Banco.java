@@ -23,5 +23,22 @@ public class Banco {
 		this.contas = contas;
 	}
 	
+	//metodo para exibir o nome dos clientes daquele banco especifico
+	public void exibirNomesDosClientes() {
+        if (contas == null || contas.isEmpty()) {
+            System.out.println("Ainda não existem Clientes!");
+        } else {
+            for (Conta ct : contas) {
+                Cliente cliente = ct.getCliente();
+                if (cliente != null) {
+                    System.out.println(cliente.getNome());
+                } else {
+                    System.out.println("Conta sem cliente associado: " + ct.getNumero());
+                }
+            }
+        }
+    }
+
+	
 	
 }
