@@ -5,14 +5,16 @@ public abstract class Conta implements IConta{
 	protected int agencia;
 	protected int numero;
 	protected double saldo;
+	private Cliente cliente;
 	
 	private static int AgenciaPadrao;
 	
 	private static int SEQUENCIAL = 0;
 	
-	public Conta() {
+	public Conta(Cliente cliente) {
 		this.agencia = Conta.AgenciaPadrao;
 		this.numero= Conta.SEQUENCIAL++;
+		this.cliente = cliente;
 		
 	}
 	
@@ -24,32 +26,34 @@ public abstract class Conta implements IConta{
 		return numero;
 	}
 
-	public void sacar() {
-		
-	}
-	
-	public void deositar() {
-		
-	}
-	public void transferir() {
-		
-	}
-
 	@Override
 	public void sacar(double valor) {
-		// TODO Auto-generated method stub
-		
+		if(this.saldo<=valor) {
+			System.out.println("Saldo insuficiente");
+		}else {
+			this.saldo = saldo - valor;
+			System.out.println("Saque realizado!");
+		}			
 	}
 
 	@Override
-	public void deositar(double valor) {
-		// TODO Auto-generated method stub
-		
+	public void depositar(double valor) {
+		this.saldo = saldo + valor;
 	}
 
 	@Override
 	public void transferir(double valor, IConta contaDestino) {
-		// TODO Auto-generated method stub
+		sacar(valor);
+		//depositando em outra conta
+		contaDestino.depositar(valor);
 		
+		
+	}
+	protected void imprimirInfoComuns() {		
+		System.out.println(String.format("Titular: %s ", this.cliente.getNome()));
+		System.out.println(String.format("Agencia: %d ", this.agencia));
+		System.out.println(String.format("Conta:%d ", this.numero));
+		System.out.println(String.format("Saldo:%.2f ", this.saldo));
+		System.out.println();
 	}
 }
